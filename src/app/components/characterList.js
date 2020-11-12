@@ -65,7 +65,7 @@ function CharacterList(props) {
 		{
 			field: "realm",
 			headerName: "Royaume",
-			width: 200,
+			width: 190,
 			headerClassName: "dataGridHeader",
 			sortable: true,
 		},
@@ -74,7 +74,7 @@ function CharacterList(props) {
 			headerName: "Dernière conn.",
 			sortable: true,
 			type: "dateTime",
-			width: 130,
+			width: 140,
 			headerClassName: "dataGridHeader",
 			renderCell: (params) => renderDate(params),
 		},
@@ -82,7 +82,6 @@ function CharacterList(props) {
 			field: "link",
 			headerName: "Armurerie",
 			sortable: true,
-			type: "dateTime",
 			width: 100,
 			headerClassName: "dataGridHeader",
 			renderCell: (params) => renderLink(params),
@@ -135,9 +134,8 @@ function CharacterList(props) {
 		);
 	};
 
-
 	const renderDate = (params) => {
-		var lastLoginDate = Date(params.value).toLocaleString();
+		var lastLoginDate = new Date(params.value).toLocaleString();
 		return <>{lastLoginDate}</>;
 	};
 
