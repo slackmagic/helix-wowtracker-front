@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./app/App";
 import Login from "./login/login";
+import App from "./app/App";
 import { createBrowserHistory } from "history";
 import PrivateRoute from "./privateRoute";
 import reportWebVitals from "./reportWebVitals";

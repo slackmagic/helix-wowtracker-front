@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./login.css";
 import {
 	Button,
 	CssBaseline,
@@ -9,6 +10,7 @@ import {
 } from "@material-ui/core";
 import { useLocation, useHistory } from "react-router-dom";
 import { HelixAuth } from "@slackmagic/helix-service";
+
 
 function Login() {
 	let history = useHistory();
@@ -66,7 +68,7 @@ function Login() {
 	};
 
 	return (
-		<Container component="main" maxWidth="xs">
+		<Container component="main" maxWidth="xs" className="body">
 			<CssBaseline />
 			<div className={classes.paper}>
 				<Typography

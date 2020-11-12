@@ -1,87 +1,43 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import Button from "@material-ui/core/Button";
+import Logo from "../../theme/wow_logo.png";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
+	root: {
+		flexGrow: 1,
+	},
+	menuButton: {
+		marginRight: theme.spacing(2),
+	},
+	title: {
+		flexGrow: 1,
+	},
+	bottomBar: {
+		background: "linear-gradient(0deg, #cf9b53 0%, #a16e3a 100%)",
+		minHeight: "10px",
+		maxWidth: "100%",
+	},
 }));
 
 export default function MenuAppBar() {
-  const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+	const classes = useStyles();
 
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
-
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            WowTracker
-          </Typography>
-          {auth && (
-            <div>
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={open}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-              </Menu>
-            </div>
-          )}
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+	return (
+		<div className={classes}>
+			<AppBar className="appBar">
+				<Toolbar>
+					<img src={Logo} width="200px" />
+					<Typography variant="h6" className={classes.title}></Typography>
+					<Button variant="contained" color="secondary">Refresh</Button>
+				</Toolbar>
+				<div className={classes.bottomBar}></div>
+			</AppBar>
+		</div>
+	);
 }
