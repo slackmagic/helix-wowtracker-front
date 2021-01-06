@@ -22,7 +22,7 @@ function App() {
 	const [characters, setCharacters] = useState([]);
 
 	const loadCharacters = () => {
-		HelixWowTracker.getCharacters().then((data) => {
+		HelixWowTracker.getCharactersLastData().then((data) => {
 			setCharacters(data);
 		});
 	};

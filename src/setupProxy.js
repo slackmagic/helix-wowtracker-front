@@ -2,11 +2,18 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function(app) {
   app.use(
-    '/api',
+    '/api/userstore',
     createProxyMiddleware({
-      //target: 'https://dev.stunbox.ovh',
-      target: 'http://127.0.0.1:8000',
+      target: 'https://home.stunbox.ovh',
       changeOrigin: true,
-    })
+    }),
+  );
+
+  app.use(
+    '/api/wow-tracker',
+    createProxyMiddleware({
+      target: 'http://127.0.0.1:8000',
+      //changeOrigin: true,
+    }),
   );
 };

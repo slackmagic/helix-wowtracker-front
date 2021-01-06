@@ -4,19 +4,12 @@ import IconButton from "@material-ui/core/IconButton";
 import LinkIcon from "@material-ui/icons/Link";
 import { FlashOnRounded } from "@material-ui/icons";
 import { Typography } from "@material-ui/core";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 function CharacterList(props) {
 	const characters = props.list;
 
 	const columns = [
-		{
-			field: "evol",
-			headerName: "Evol.",
-			sortable: true,
-			width: 60,
-			headerClassName: "dataGridHeader",
-			renderCell: (params) => renderEvolLevel(params),
-		},
 		{
 			field: "level",
 			headerName: "Level (ilvl)",
@@ -31,12 +24,20 @@ function CharacterList(props) {
 			sortable: true,
 			width: 60,
 			headerClassName: "dataGridHeader",
-			renderCell: (params) => renderEvolILevel(params),
+			renderCell: (params) => renderEvolLevel(params),
+		},
+		{
+			field: "level_progression",
+			headerName: "Progression niveau actuel",
+			sortable: true,
+			width: 60,
+			headerClassName: "dataGridHeader",
+			renderCell: (params) => renderLevelProgression(params),
 		},
 		{
 			field: "name",
 			headerName: "Nom",
-			width: 180,
+			width: 120,
 			sortable: true,
 			headerClassName: "dataGridHeader",
 			renderCell: (params) => renderName(params),
@@ -91,18 +92,20 @@ function CharacterList(props) {
 	const minimizeList = () => {
 		return characters.map((char) => {
 			var min_char = {
-				id: char.profile.id,
-				level: char.profile.level * 1000 + char.profile.average_item_level,
-				realm: char.profile.realm.name,
-				link: char.profile.name + ";" + char.profile.realm.slug,
-				name: char.profile.name,
-				active_title: char.profile.active_title.display_string,
-				faction: char.profile.faction.type_faction,
-				character_class: char.profile.character_class.name,
-				active_spec: char.profile.active_spec.name,
-				average_item_level: char.profile.average_item_level,
-				last_login_timestamp: char.profile.last_login_timestamp,
-				media: char.media,
+				id: char.data.profile.id,
+				level:
+					char.data.profile.level * 1000 + char.data.profile.average_item_level,
+				level_progression: char.statistics.level_current_progression,
+				realm: char.data.profile.realm.name,
+				link: char.data.profile.name + ";" + char.data.profile.realm.slug,
+				name: char.data.profile.name,
+				active_title: char.data.profile.active_title.display_string,
+				faction: char.data.profile.faction.type_faction,
+				character_class: char.data.profile.character_class.name,
+				active_spec: char.data.profile.active_spec.name,
+				average_item_level: char.data.profile.average_item_level,
+				last_login_timestamp: char.data.profile.last_login_timestamp,
+				media: char.data.media,
 			};
 			return min_char;
 		});
@@ -111,6 +114,7 @@ function CharacterList(props) {
 	const renderLevel = (params) => {
 		var level = (params.value + "").substring(0, 2);
 		var ilevel = parseInt((params.value + "").substring(2, 6));
+
 		return (
 			<>
 				<strong>{level}</strong>&nbsp;({ilevel})
@@ -130,6 +134,18 @@ function CharacterList(props) {
 		return (
 			<>
 				<strong>+1.5%</strong>
+			</>
+		);
+	};
+
+	const renderLevelProgression = (params) => {
+		var percentage = (params.value * 100).toPrecision(3);
+
+		return (
+			<>
+				<LinearProgress variant="determinate" value="{percentage}" />
+				<strong>{percentage}%</strong>
+				
 			</>
 		);
 	};
@@ -171,6 +187,20 @@ function CharacterList(props) {
 			</>
 		);
 	};
+
+	var data = {
+		series: [50],
+	};
+
+	var options = {
+		donut: true,
+		donutWidth: 60,
+		startAngle: 270,
+		total: 100,
+		showLabel: false,
+	};
+
+	var type = "Pie";
 
 	return (
 		<div style={{ width: "100%" }}>
